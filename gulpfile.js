@@ -3,7 +3,7 @@ var gulp   = require('gulp'),
     Server = require('karma').Server;
 
 // create a default task
-gulp.task('default', ['watch','jshint', 'tests']);
+gulp.task('default', ['watch', 'tests']);
 
 // configure the jshint task
 gulp.task('jshint', function() {
@@ -13,7 +13,7 @@ gulp.task('jshint', function() {
 });
 
 // configure karma to run tests
-gulp.task('tests', function (done) {
+gulp.task('tests', ['jshint'], function (done) {
   new Server({
     configFile: __dirname + '/karma.conf.js',
     singleRun: true
@@ -22,5 +22,5 @@ gulp.task('tests', function (done) {
 
 // configure which files to watch and what tasks to use on file changes
 gulp.task('watch', function() {
-  gulp.watch('source/javascript/**/*.js', ['jshint', 'tests']);
+  gulp.watch('source/javascript/**/*.js', ['tests']);
 });
